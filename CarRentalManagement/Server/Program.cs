@@ -1,9 +1,11 @@
 using CarRentalManagement.Server.Data;
+using CarRentalManagement.Server.IRepository;
 using CarRentalManagement.Server.Models;
+using CarRentalManagement.Server.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-//using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,8 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
