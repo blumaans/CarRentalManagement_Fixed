@@ -46,14 +46,14 @@ namespace CarRentalManagement.Server.Controllers
         {
             //Refactored
             //var Booking = await _context.Bookings.FindAsync(id);
-            var Booking = await _unitOfWork.Bookings.Get(q => q.Id == id);
+            var Bookings = await _unitOfWork.Bookings.GetAll(includes: q => q.Include(x => x.Vehicle).Include(x => x.Customer));
 
-            if (Booking == null)
+            if (Bookings == null)
             {
                 return NotFound();
             }
             //Refactored
-            return Ok(Booking);
+            return Ok(Bookings);
         }
 
         // PUT: api/Bookings/5
